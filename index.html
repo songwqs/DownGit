@@ -21,7 +21,8 @@ html,body{margin:0;padding:0;}body::-webkit-scrollbar{display:none}p{margin:0;}[
   <div class="m-p-intro">支持特定分支，特定 tags 下的文件夹或具体文件，解决 GitHub 只能下载整个项目的问题。直接拷贝当前页面链接至本页面，点击下载</div>
   <section class="m-p-input-container">
     <input type="text" v-model="url" :disabled="downloading" :readonly="downloading" placeholder="请输入 GitHub 当前页面链接">
-    <div class="" v-if="!downloading" @click="getFileList" :class="{'disable':downloading}">解析下载</div>
+    <div class="" v-if="!downloading" @click="getFileList(0)" :class="{'disable':downloading}">解析下载</div>
+    <div class="" v-if="!downloading" @click="getFileList"(1):class="{'disable':downloading}">代理下载</div>
   </section>
 
   <template v-if="fileInfoList.length > 0">
@@ -152,9 +153,9 @@ new Vue({
         fail: _ => this.alertError('链接不正确，请查看链接是否有效')
       })
     },
-
+  
     // 获取 git tree
-    getFileList() {
+    getFileList(a) {
       if (!this.url) {
         alert('请输入链接')
         return
@@ -162,7 +163,8 @@ new Vue({
         alert('资源下载中，请稍后')
         return
       }
-      const proxy='https://git.songwqs.top/'
+      
+      const proxy=(a==1)?'https://git.songwqs.top/':''
       this.downloading = true
       this.tips = 'git tree 文件下载中，请稍后'
       this.url = decodeURIComponent(this.url)
