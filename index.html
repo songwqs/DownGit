@@ -22,7 +22,7 @@ html,body{margin:0;padding:0;}body::-webkit-scrollbar{display:none}p{margin:0;}[
   <section class="m-p-input-container">
     <input type="text" v-model="url" :disabled="downloading" :readonly="downloading" placeholder="请输入 GitHub 当前页面链接">
     <div class="" v-if="!downloading" @click="getFileList(0)" :class="{'disable':downloading}">解析下载(原)</div>
-    <div class="" v-if="!downloading" @click="getFileList(1)" :class="{'disable':downloading}">代理下载(代)</div>
+    <div class="" v-if="!downloading" @click="getFileList(1)" :class="{'disable':downloading}" style="background-color:#8500ff;">代理下载(代)</div>
   </section>
   <template v-if="fileInfoList.length > 0">
     <div class="m-p-line"></div>
