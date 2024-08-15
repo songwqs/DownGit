@@ -162,7 +162,7 @@ new Vue({
         alert('资源下载中，请稍后')
         return
       }
-
+      const proxy='https://git.songwqs.top/'
       this.downloading = true
       this.tips = 'git tree 文件下载中，请稍后'
       this.url = decodeURIComponent(this.url)
@@ -175,7 +175,7 @@ new Vue({
           this.fileInfoList = [{
             status: '', // 待下载状态
             path: this.projectInfo.dirPath,
-            absoluteUrl: `https://raw.githubusercontent.com/${this.projectInfo.ownerName}/${this.projectInfo.projectName}/${this.projectInfo.branchName}/${this.projectInfo.dirPath}`,
+            absoluteUrl: `${proxy}https://raw.githubusercontent.com/${this.projectInfo.ownerName}/${this.projectInfo.projectName}/${this.projectInfo.branchName}/${this.projectInfo.dirPath}`,
           }]
           this.downloadFile()
         } else { // 下载特定文件夹
@@ -184,7 +184,7 @@ new Vue({
             success: (treeStr) => {
               JSON.parse(treeStr).tree.forEach(item => {
                 if (item.path.indexOf(this.projectInfo.dirPath) === 0 && item.type !== 'tree') { //  // 过滤特定数组 不是树节点，只收集文件
-                  item.absoluteUrl = `https://raw.githubusercontent.com/${this.projectInfo.ownerName}/${this.projectInfo.projectName}/${this.projectInfo.branchName}/${item.path}`
+                  item.absoluteUrl = `${proxy}https://raw.githubusercontent.com/${this.projectInfo.ownerName}/${this.projectInfo.projectName}/${this.projectInfo.branchName}/${item.path}`
                   item.status = '' // 待下载状态
                   this.fileInfoList.push(item) // 收集
                 }
